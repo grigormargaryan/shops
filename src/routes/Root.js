@@ -22,18 +22,16 @@ const Root = ({store, history}) => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <div>
-        <div className="container-fluid containerFluid">
-          <App/>
-          <Switch>
-            <Route path="/login/" component={LoginContainer} exact/>
-            <Route path="/recruiter/login/" component={RecruiterLoginContainer} exact/>
-            <Route path="/registration/" component={RegistrationContainer} exact/>
-            <Route path="/forgot-password/" component={ForgotContainer} exact />
-            <Route path="/forgot-password/:token/" component={ResetContainer} exact/>
-            <Route component={DefaultContainer}/>
-            <Route component={NotFoundPageContainer} exact />
-          </Switch>
-        </div>
+        <App/>
+        <Switch>
+          <Route path="/login/" component={LoginContainer} exact/>
+          <Route path="/recruiter/login/" component={RecruiterLoginContainer} exact/>
+          <Route path="/sign-up/" component={RegistrationContainer} exact/>
+          <Route path="/forgot-password/" component={ForgotContainer} exact/>
+          <Route path="/forgot-password/:token/" component={ResetContainer} exact/>
+          <Route component={DefaultContainer}/>
+          <Route component={NotFoundPageContainer} exact/>
+        </Switch>
       </div>
     </ConnectedRouter>
   </Provider>
@@ -41,9 +39,11 @@ const Root = ({store, history}) => (
 const DefaultContainer = () => (
   <React.Fragment>
     <HeaderContainer/>
-      <Route exact path="/" component={HomeContainer} />
+    <div className="container-fluid containerFluid">
+      <Route exact path="/" component={HomeContainer}/>
       <Route path="/confirm/:token/" component={ConfirmContainer} exact/>
       <Route path="/users/profile/" component={requireAuth(ProfileContainer)} exact/>
+    </div>
     <FooterComponent/>
   </React.Fragment>
 )

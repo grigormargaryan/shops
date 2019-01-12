@@ -4,18 +4,32 @@ import Icon from '../Icons'
 import Slider from 'react-slick'
 import {Field, reduxForm} from 'redux-form'
 import {customInput, responseError} from '../../fields'
+import SocialButton from '../SocialButton'
+import configs from '../../configs'
 import {
   required,
   minLength
-} from '../../validation';
+} from '../../validation'
+
 
 class LoginComponent extends Component {
+
+  handleSocialLogin = (user) => {
+    console.log(user)
+  };
+
+  handleSocialLoginFailure = (err) => {
+    console.error(err)
+  };
+
   render() {
+
     const {handleSubmit, invalid, error} = this.props;
     const settings = {
       speed: 500,
       autoplay: true
     };
+    console.log(configs.api.fb_api_id)
     return (
       <section>
 
@@ -51,14 +65,14 @@ class LoginComponent extends Component {
                               <Icon name="mdiOnepassword"/>
                             </span>
                             <span className="fldIcon fldIconR cPointer" onClick={this.props.showPassword}>
-                              <Icon name= {this.props.state.password_type ? 'mdiEye' : 'mdiEyeOff'}/>
+                              <Icon name={this.props.state.password_type ? 'mdiEye' : 'mdiEyeOff'}/>
                             </span>
                             <Field
                               name="password"
                               component={customInput}
                               type={this.props.state.password_type ? 'text' : 'password'}
                               placeholder="Password"
-                              validate={[required,minLength]}
+                              validate={[required, minLength]}
                             />
                           </div>
 
@@ -72,7 +86,8 @@ class LoginComponent extends Component {
                         </div>
                         <button type="submit" className="btn lgBtn btn-primary roundBtn btn-block"
                                 disabled={invalid}
-                        >SIGN IN</button>
+                        >SIGN IN
+                        </button>
                       </form>
                       <div className="formBtmCol">
                         <Link to="/forgot-password/" className="themeColor">Forgot Password?</Link>
@@ -81,14 +96,28 @@ class LoginComponent extends Component {
                           <div className="signUpBtns">
                             <div className="form-row">
                               <div className="col-md-6">
-                                <a className="btn roundBtn btn-block socialBtn gmailBtn mb-3" href="#">
+                                <SocialButton
+                                  provider='google'
+                                  className="btn roundBtn btn-block socialBtn gmailBtn mb-3"
+                                  appId={configs.api.gg_api_id}
+                                  onLoginSuccess={this.handleSocialLogin}
+                                  onLoginFailure={this.handleSocialLoginFailure}
+                                  key={'google'}
+                                >
                                   <Icon name="mdiGmail" color="#ffff"/> <span>Gmail</span>
-                                </a>
+                                </SocialButton>
                               </div>
                               <div className="col-md-6">
-                                <a className="btn roundBtn btn-block socialBtn btnFb mb-3" href="#">
+
+                                <SocialButton
+                                  provider='facebook'
+                                  appId={configs.api.fb_api_id}
+                                  className="btn roundBtn btn-block socialBtn btnFb mb-3"
+                                  onLoginSuccess={this.handleSocialLogin}
+                                  onLoginFailure={this.handleSocialLoginFailure}
+                                >
                                   <Icon name="mdiFacebook" color="#ffff"/> <span>Facebook</span>
-                                </a>
+                                </SocialButton>
                               </div>
                             </div>
                           </div>
@@ -96,7 +125,7 @@ class LoginComponent extends Component {
                       </div>
                     </div>
                     <div>
-                      <p className="btmLine">Don’t have an account? <a href="#">SIGN UP</a></p>
+                      <p className="btmLine">Don’t have an account?<a href="#">SIGN UP</a></p>
                     </div>
                   </div>
                 </div>
@@ -104,32 +133,33 @@ class LoginComponent extends Component {
             </div>
           </div>
           <div className="rightSliderCol d-none d-md-block">
-                <Slider {...settings}>
-                  <div>
-                    <img className="rightSlideImg" src="/images/slider-one.jpg" alt="first slide"/>
-                    <div className="carousel-caption d-none d-md-block">
-                      <h5>OUR GREATEST LONG-TERM <br/> INVESTMENT IS OUR PEOPLE</h5>
-                    </div>
-                  </div>
-                  <div>
-                    <img className="rightSlideImg" src="/images/slider-one.jpg" alt="first slide"/>
-                    <div className="carousel-caption d-none d-md-block">
-                      <h5>OUR GREATEST LONG-TERM <br/> INVESTMENT IS OUR PEOPLE</h5>
-                    </div>
-                  </div>
-                  <div>
-                    <img className="rightSlideImg" src="/images/slider-one.jpg" alt="first slide"/>
-                    <div className="carousel-caption d-none d-md-block">
-                      <h5>OUR GREATEST LONG-TERM <br/> INVESTMENT IS OUR PEOPLE</h5>
-                    </div>
-                  </div>
-                </Slider>
+            <Slider {...settings}>
+              <div>
+                <img className="rightSlideImg" src="/images/slider-one.jpg" alt="first slide"/>
+                <div className="carousel-caption d-none d-md-block">
+                  <h5>OUR GREATEST LONG-TERM <br/> INVESTMENT IS OUR PEOPLE</h5>
+                </div>
+              </div>
+              <div>
+                <img className="rightSlideImg" src="/images/slider-one.jpg" alt="first slide"/>
+                <div className="carousel-caption d-none d-md-block">
+                  <h5>OUR GREATEST LONG-TERM <br/> INVESTMENT IS OUR PEOPLE</h5>
+                </div>
+              </div>
+              <div>
+                <img className="rightSlideImg" src="/images/slider-one.jpg" alt="first slide"/>
+                <div className="carousel-caption d-none d-md-block">
+                  <h5>OUR GREATEST LONG-TERM <br/> INVESTMENT IS OUR PEOPLE</h5>
+                </div>
+              </div>
+            </Slider>
           </div>
         </div>
       </section>
     )
   }
 }
+
 LoginComponent = reduxForm({
   form: 'login',
 })(LoginComponent);

@@ -5,6 +5,8 @@ import { func } from 'prop-types'
 import RegistrationComponent from '../components/registration/RegistrationComponent'
 import { registration } from '../actions/auth'
 import { authErrors, getSuccessMsg, isAuthenticated } from '../reducers'
+import * as notification from './notification';
+
 
 class RegistrationContainer extends Component {
 	state = {
@@ -18,12 +20,12 @@ class RegistrationContainer extends Component {
 		if (this.props.isAuthenticated) {
 			this.props.history.push('/')
 		}
+
 	}
 
 
 	onSubmit = values => {
-    window.alert(JSON.stringify(values,null,4))
-		this.props.registration(values)
+		this.props.registration(values.first_name, values.last_name,values.email,values.password)
 	}
 
   showPassword = () => {
@@ -32,6 +34,16 @@ class RegistrationContainer extends Component {
     })
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.successMsg !== this.props.successMsg) {
+      notification.createNotification('success' , nextProps.successMsg);
+      this.props.history.push('/')
+    }
+    if (nextProps.errors !== this.props.errors) {
+      notification.createNotification('error' , nextProps.errors);
+    }
+  };
+
 	render() {
 		return (
 			<div className="login-page">
@@ -39,7 +51,6 @@ class RegistrationContainer extends Component {
 					onSubmit={this.onSubmit}
           showPassword={this.showPassword}
 					errors={this.props.errors}
-					successMsg={this.props.successMsg}
 					state={this.state}
 				/>
 			</div>

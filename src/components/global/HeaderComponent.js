@@ -5,7 +5,7 @@ class HeaderComponent extends Component {
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <Link className="navbar-brand" to="#">
+        <Link className="navbar-brand" to="/">
           Navbar
         </Link>
         <button
@@ -19,19 +19,11 @@ class HeaderComponent extends Component {
         >
           <span className="navbar-toggler-icon"/>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <form className="form-inline my-2 my-lg-0">
-            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
-              Search
-            </button>
+        <div className="collapse navbar-collapse position-relative ml-5" id="navbarSupportedContent">
+          <form className="form-inline my-2 my-lg-0 w-50">
+            <input className="form-control w-100" type="search" placeholder="Search" />
           </form>
-          <ul className="navbar-nav float-right">
-            <li className="nav-item active">
-              <Link className="nav-link" to="/">
-                Home <span className="sr-only">(current)</span>
-              </Link>
-            </li>
+          <ul className="navbar-nav position-absolute r-0">
             {this.props.isAuthenticated ? (
               <li className="nav-item" onClick={this.props.logout}>
                 <Link className="nav-link disabled" to="#">
@@ -46,12 +38,7 @@ class HeaderComponent extends Component {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/recruiter/login">
-                    Recruiter Login
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link disabled" to="/registration">
+                  <Link className="nav-link disabled" to="/sign-up">
                     Sign Up
                   </Link>
                 </li>

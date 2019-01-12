@@ -90,7 +90,7 @@ export default (state = initialState, action) => {
 				...state,
 				access: undefined,
 				refresh: undefined,
-				errors: action.payload.response.non_field_errors
+				errors: action.payload.response.message
 			}
 		case auth.CHANGE_AVATAR:
 			return {

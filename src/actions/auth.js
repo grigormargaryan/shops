@@ -44,12 +44,12 @@ export const login = (login, password) => ({
 	}
 })
 
-export const registration = (username, email, password) => ({
+export const registration = (first_name, last_name, email, password) => ({
 	[RSAA]: {
-		endpoint: '/users/auth/signup/',
+		endpoint: '/users/auth/sign-up/',
 		method: 'POST',
-		body: JSON.stringify({ username, email, password }),
-		headers: withLanguage(),
+		body: JSON.stringify({ first_name, last_name, email, password}),
+    headers: withLanguage(),
 		types: [REGISTRATION_REQUEST, REGISTRATION_SUCCESS, REGISTRATION_FAILURE]
 	}
 })

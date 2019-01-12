@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { NotificationContainer } from 'react-notifications'
 
-class App extends Component {
+class App extends Component {z
 	render() {
 		return (
 			<div>

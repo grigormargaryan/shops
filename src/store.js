@@ -5,18 +5,15 @@ import { persistReducer, persistStore } from 'redux-persist'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { routerMiddleware } from 'react-router-redux'
 import createLogger from 'redux-logger'
-import createSagaMiddleware from 'redux-saga'
 import createRavenMiddleware from 'raven-for-redux'
 import * as Raven from 'raven-js'
 
 import apiMiddleware from './middleware'
 import rootReducer from './reducers'
-import rootSaga from './sagas'
 
 export default history => {
 	const persistedFilter = createFilter('auth', ['access', 'refresh', 'user'])
 	const middlewareHistory = routerMiddleware(history)
-    const sagaMiddleware = createSagaMiddleware()
 	const reducer = persistReducer(
 		{
 			key: 'levelhunt',
@@ -26,7 +23,7 @@ export default history => {
 		},
 		rootReducer
 	)
-	const middlewares = [apiMiddleware, middlewareHistory, sagaMiddleware]
+	const middlewares = [apiMiddleware, middlewareHistory]
 	if (process.env.NODE_ENV !== 'production') {
 		middlewares.push(createLogger)
 	} else {
@@ -41,7 +38,6 @@ export default history => {
 		composeWithDevTools(applyMiddleware(...middlewares))
 	)
 
-    sagaMiddleware.run(rootSaga)
 
 	return new Promise((resolve, reject) => {
 		persistStore(store, null, () => {

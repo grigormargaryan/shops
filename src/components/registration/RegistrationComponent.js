@@ -4,14 +4,26 @@ import Icon from '../Icons'
 import Slider from 'react-slick'
 import {Field, reduxForm} from 'redux-form'
 import {customInput} from '../../fields'
+import SocialButton from '../SocialButton'
+import configs from '../../configs'
 import {
   required,
   minLength,
   maxLength,
   email
-} from '../../validation';
+} from '../../validation'
+
 
 class RegistrationComponent extends Component {
+
+  handleSocialLogin = (user) => {
+    console.log(user)
+  };
+
+  handleSocialLoginFailure = (err) => {
+    console.error(err)
+  };
+
   render() {
     const {handleSubmit} = this.props;
     const settings = {
@@ -101,14 +113,27 @@ class RegistrationComponent extends Component {
 													<div className="signUpBtns">
 														<div className="form-row">
 															<div className="col-md-6">
-																<a className="btn roundBtn btn-block socialBtn gmailBtn mb-3" href="#">
+																<SocialButton
+																	provider='google'
+																	className="btn roundBtn btn-block socialBtn gmailBtn mb-3"
+																	appId={configs.api.gg_api_id}
+																	onLoginSuccess={this.handleSocialLogin}
+																	onLoginFailure={this.handleSocialLoginFailure}
+																	key={'google'}
+																>
 																	<Icon name="mdiGmail" color="#ffff"/> <span>Gmail</span>
-																</a>
+																</SocialButton>
 															</div>
 															<div className="col-md-6">
-																<a className="btn roundBtn btn-block socialBtn btnFb mb-3" href="#">
+																<SocialButton
+																	provider='facebook'
+																	appId={configs.api.fb_api_id}
+																	className="btn roundBtn btn-block socialBtn btnFb mb-3"
+																	onLoginSuccess={this.handleSocialLogin}
+																	onLoginFailure={this.handleSocialLoginFailure}
+																>
 																	<Icon name="mdiFacebook" color="#ffff"/> <span>Facebook</span>
-																</a>
+																</SocialButton>
 															</div>
 														</div>
 													</div>
