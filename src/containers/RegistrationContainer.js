@@ -25,7 +25,7 @@ class RegistrationContainer extends Component {
 
 
 	onSubmit = values => {
-		this.props.registration(values.first_name, values.last_name,values.email,values.password)
+		this.props.registration(values)
 	}
 
   showPassword = () => {
@@ -40,6 +40,7 @@ class RegistrationContainer extends Component {
       this.props.history.push('/')
     }
     if (nextProps.errors !== this.props.errors) {
+      this.props.history.push('/')
       notification.createNotification('error' , nextProps.errors);
     }
   };

@@ -1,5 +1,6 @@
 import jwtDecode from 'jwt-decode'
 import * as auth from '../actions/auth'
+import * as shop from '../actions/shops'
 
 const initialState = {
 	access: undefined,
@@ -8,30 +9,28 @@ const initialState = {
 	successMsg: '',
 	user: {
 		email: '',
-		firstName: '',
+    firstName: '',
 		lastName: '',
-		avatar: ''
+    profilePicURL: ''
 	}
 }
 
 export default (state = initialState, action) => {
 	switch (action.type) {
 		case auth.LOGIN_SUCCESS:
-		case auth.CONFIRM_SUCCESS:
 		case auth.RESET_SUCCESS:
+		case shop.CREATE_SHOPS_SUCCESS:
 			return {
 				...state,
 				access: {
 					token: action.payload.access_token,
 					...jwtDecode(action.payload.access_token)
 				},
-				refresh: {
-					token: action.payload.refresh_token,
-					...jwtDecode(action.payload.refresh_token)
-				},
+        refresh: {
+          token: action.payload.refresh_token,
+          ...jwtDecode(action.payload.refresh_token)
+        },
 				user: action.payload.user,
-				errors: [],
-				successMsg: ''
 			}
 		case auth.FORGOT_SUCCESS:
 			return {
@@ -39,6 +38,20 @@ export default (state = initialState, action) => {
 				successMsg: action.payload.msg
 			}
 		case auth.REGISTRATION_SUCCESS:
+      if(action.payload.access_token && action.payload.refresh_token){
+        return {
+          ...state,
+          access: {
+            token: action.payload.access_token,
+            ...jwtDecode(action.payload.access_token)
+          },
+          refresh: {
+            token: action.payload.refresh_token,
+            ...jwtDecode(action.payload.refresh_token)
+          },
+          user: action.payload.data,
+        }
+			}
 			return {
 				...state,
 				successMsg: action.payload.msg
@@ -58,22 +71,11 @@ export default (state = initialState, action) => {
 				access: undefined
 			}
 		case auth.RESET_FAILURE:
-		case auth.CONFIRM_FAILURE: {
-			let errors = []
-			for (let error in action.payload.response) {
-				if (error.non_field_errors) {
-					errors.concat(error.non_field_errors)
-				}
-				if (error.token) {
-					errors.concat(error.token)
-				}
-			}
-
-			return {
-				...state,
-				errors: errors
-			}
-		}
+		case auth.CONFIRM_FAILURE:
+      return {
+        ...state,
+        errors: action.payload.response.message
+      }
 		case auth.FORGOT_FAILURE:
 			return {
 				...state,
@@ -82,9 +84,11 @@ export default (state = initialState, action) => {
 		case auth.LOGIN_FAILURE:
       return {
         ...state,
-        errors: action.payload.response.non_field_errors
+        access: undefined,
+        refresh: undefined,
+        errors: action.payload.response.message
       }
-		case auth.TOKEN_FAILURE:
+
 		case auth.REGISTRATION_FAILURE:
 			return {
 				...state,
@@ -92,6 +96,11 @@ export default (state = initialState, action) => {
 				refresh: undefined,
 				errors: action.payload.response.message
 			}
+    case shop.CREATE_SHOPS_FAILURE:
+      return {
+        ...state,
+        errors: action.payload.response.message
+      }
 		case auth.CHANGE_AVATAR:
 			return {
 				...state,

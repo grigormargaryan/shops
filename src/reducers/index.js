@@ -3,14 +3,14 @@ import { routerReducer } from 'react-router-redux'
 import { localeReducer } from 'react-redux-localization'
 import auth, * as fromAuth from './auth'
 import app from './app'
-import skills, * as fromSkills from './skills'
+import shops, * as fromSkills from './shops'
 import users, * as fromUsers from './users'
 import { reducer as formReducer } from 'redux-form'
 
 export default combineReducers({
 	auth: auth,
 	app: app,
-	skills: skills,
+  shops: shops,
 	users: users,
 	locale: localeReducer,
 	router: routerReducer,
@@ -25,7 +25,6 @@ export const isRefreshTokenExpired = state => fromAuth.isRefreshTokenExpired(sta
 export const getUser = state => fromAuth.getUser(state.auth)
 export const authErrors = state => fromAuth.errors(state.auth)
 export const getSuccessMsg = state => fromAuth.getSuccessMsg(state.auth)
-export const getSkills = state => fromSkills.getSkills(state.skills)
 export const getUserInfo = state => fromUsers.getUserInfo(state.users)
 export const cropperAvatar = state => fromUsers.cropperAvatar(state.users)
 export const userErrors = state => fromUsers.errors(state.users)

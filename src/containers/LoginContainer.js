@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import LoginComponent from '../components/login/LoginComponent'
 import { login } from '../actions/auth'
 import { authErrors, isAuthenticated } from '../reducers'
-import { SubmissionError } from "redux-form";
+import * as notification from './notification';
 
 
 class LoginContainer extends Component {
@@ -18,11 +18,14 @@ class LoginContainer extends Component {
 		if (this.props.isAuthenticated) {
 			this.props.history.push('/')
 		}
+    if (this.props.errors) {
+      this.props.history.push('/')
+      notification.createNotification('error' , this.props.errors);
+    }
 	}
 	onSubmit = values => {
-		this.props.login(values.login, values.password)
+		this.props.login(values.email, values.password)
 
-    throw new SubmissionError({ _error: 'login failed'})
 	}
 
 

@@ -3,8 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { func } from 'prop-types'
 import HomeComponent from '../components/home/HomeComponent'
-import { getSkills } from '../reducers'
-import { getFavoriteSkills } from '../actions/skills'
+import { getFavoriteSkills } from '../actions/shops'
 
 class HomeContainer extends Component {
 	componentDidMount() {
@@ -12,7 +11,7 @@ class HomeContainer extends Component {
 	}
 
 	render() {
-		return <HomeComponent skillsData={this.props.skillsData} name="sipan" />
+		return <HomeComponent name="sipan" />
 	}
 }
 
@@ -21,7 +20,6 @@ HomeContainer.propTypes = {
 }
 
 const mapStateToProps = state => ({
-	skillsData: getSkills(state)
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({ getFavoriteSkills }, dispatch)

@@ -9,7 +9,7 @@ import {
   LoginContainer,
   RecruiterLoginContainer,
   RegistrationContainer,
-  ConfirmContainer,
+  CreateShopsContainer,
   ForgotContainer,
   ResetContainer,
   HomeContainer,
@@ -27,6 +27,7 @@ const Root = ({store, history}) => (
           <Route path="/login/" component={LoginContainer} exact/>
           <Route path="/recruiter/login/" component={RecruiterLoginContainer} exact/>
           <Route path="/sign-up/" component={RegistrationContainer} exact/>
+          <Route path="/shops-data/:token/" component={CreateShopsContainer} exact/>
           <Route path="/forgot-password/" component={ForgotContainer} exact/>
           <Route path="/forgot-password/:token/" component={ResetContainer} exact/>
           <Route component={DefaultContainer}/>
@@ -41,7 +42,6 @@ const DefaultContainer = () => (
     <HeaderContainer/>
     <div className="container-fluid containerFluid">
       <Route exact path="/" component={HomeContainer}/>
-      <Route path="/confirm/:token/" component={ConfirmContainer} exact/>
       <Route path="/users/profile/" component={requireAuth(ProfileContainer)} exact/>
     </div>
     <FooterComponent/>

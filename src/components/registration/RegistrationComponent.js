@@ -17,7 +17,7 @@ import {
 class RegistrationComponent extends Component {
 
   handleSocialLogin = (user) => {
-    console.log(user)
+  	this.props.onSubmit(user._profile);
   };
 
   handleSocialLoginFailure = (err) => {
@@ -51,7 +51,7 @@ class RegistrationComponent extends Component {
                          <Icon name="mdiAccount"/>
                       </span>
 														<Field
-															name="first_name"
+															name="firstName"
 															component={customInput}
 															type="text"
 															placeholder="First Name"
@@ -65,7 +65,7 @@ class RegistrationComponent extends Component {
                          <Icon name="mdiAccount"/>
                       </span>
 														<Field
-															name="last_name"
+															name="lastName"
 															component={customInput}
 															type="text"
 															placeholder="Last Name"

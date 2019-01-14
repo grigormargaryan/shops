@@ -29,7 +29,6 @@ class LoginComponent extends Component {
       speed: 500,
       autoplay: true
     };
-    console.log(configs.api.fb_api_id)
     return (
       <section>
 
@@ -51,10 +50,10 @@ class LoginComponent extends Component {
                           <Icon name="mdiAccount"/>
                       </span>
                             <Field
-                              name="login"
+                              name="email"
                               component={customInput}
-                              type="text"
-                              placeholder="Username"
+                              type="email"
+                              placeholder="Email"
                               validate={[required]}
                             />
                           </div>

@@ -34,21 +34,21 @@ export const logout = () => {
 	}
 }
 
-export const login = (login, password) => ({
+export const login = (email, password) => ({
 	[RSAA]: {
 		endpoint: '/users/auth/login/',
 		method: 'POST',
-		body: JSON.stringify({ login, password }),
+		body: JSON.stringify({ email, password }),
 		headers: withLanguage(),
 		types: [LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE]
 	}
 })
 
-export const registration = (first_name, last_name, email, password) => ({
+export const registration = (data) => ({
 	[RSAA]: {
 		endpoint: '/users/auth/sign-up/',
 		method: 'POST',
-		body: JSON.stringify({ first_name, last_name, email, password}),
+		body: JSON.stringify({ data }),
     headers: withLanguage(),
 		types: [REGISTRATION_REQUEST, REGISTRATION_SUCCESS, REGISTRATION_FAILURE]
 	}

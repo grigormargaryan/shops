@@ -75,6 +75,13 @@ button[type='submit'] {
     cursor: pointer;
 }
 
+.text-ar{
+    margin-bottom: 115px !important;
+}
+
+.text-ar .leftIconFld {
+    height: 35px !important;
+}
 
 .containerFluid {
     padding-top: 15px;

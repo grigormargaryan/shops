@@ -19,7 +19,7 @@ export const CHANGE_PROFILE_IMAGE_FAILURE = 'CHANGE_PROFILE_IMAGE_FAILURE'
 
 export const getUserProfileInfo = () => ({
 	[RSAA]: {
-		endpoint: '/users/profile/',
+		endpoint: '/profile/',
 		method: 'GET',
 		headers: withAuth(),
 		types: [PROFILE_REQUEST, PROFILE_SUCCESS, PROFILE_FAILURE]

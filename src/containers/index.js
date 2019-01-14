@@ -1,7 +1,7 @@
 import LoginContainer from './LoginContainer'
 import RecruiterLoginContainer from './RecruiterLoginContainer'
 import RegistrationContainer from './RegistrationContainer'
-import ConfirmContainer from './ConfirmContainer'
+import CreateShopsContainer from './CreateShopsContainer'
 import ForgotContainer from './ForgotContainer'
 import ResetContainer from './ResetContainer'
 import HomeContainer from './HomeContainer'
@@ -15,7 +15,7 @@ export {
 	LoginContainer,
   RecruiterLoginContainer,
 	RegistrationContainer,
-	ConfirmContainer,
+  CreateShopsContainer,
 	ForgotContainer,
 	ResetContainer,
 	HomeContainer,

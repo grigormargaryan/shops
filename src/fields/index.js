@@ -39,6 +39,29 @@ export const customInput = props => {
   )
 };
 
+export const TextAreaInput = props => {
+  const {input, type, meta, placeholder} = props;
+  return (
+    <div
+      className={cx(
+        'custom-input-container',
+        {'flex-row-reverse': type === 'checkbox'},
+        {dirty: meta.dirty},
+        getValidityClassName(meta)
+      )}
+    >
+      <textarea {...input} type={props.type} placeholder={placeholder} autoFocus={props.autoFocus} className="form-control"/>
+      {meta.error &&
+      meta.touched &&
+      !meta.active && (
+        <div className='feedback-text error-text'>
+          {meta.error}
+        </div>
+      )}
+    </div>
+  )
+};
+
 export const responseError = props => {
     if(props.error) {
      return (
